@@ -10,6 +10,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
@@ -22,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,20 +37,33 @@ class MainActivity : ComponentActivity() {
         setContent {
             ToastHandlerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Button(
-                            onClick = {
-                                val toast = Toast.makeText(applicationContext, "Кнопка ОК", Toast.LENGTH_SHORT)
-                                toast.show()
-                            }
-                        ) { Text(text = "OK") }
-                    }
+                    MainScreen()
                 }
             }
         }
     }
 }
+
+@Composable
+fun MainScreen(modifier: Modifier = Modifier) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        MyButton()
+    }
+}
+
+@Composable
+fun MyButton() {
+    val context = LocalContext.current
+    Button(
+        onClick = {
+            val toast = Toast.makeText(context, "Кнопка ОК", Toast.LENGTH_SHORT)
+            toast.show()
+        }
+    ) { Text(text = "OK") }
+}
+
+
